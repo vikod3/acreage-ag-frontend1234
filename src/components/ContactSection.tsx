@@ -1,8 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import Typewriter from './Typewriter';
 
 export default function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    farm: '',
+    message: ''
+  });
+
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    farm: false,
+    message: false
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setTouched({ ...touched, [e.target.name]: true });
+  };
+
+  const validations = {
+    name: formData.name.trim().length > 0,
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email),
+    phone: /^\+[\d\s\-\(\)]{7,20}$/.test(formData.phone),
+    farm: formData.farm.trim().length > 0,
+    message: formData.message.trim().length > 0,
+  };
+
+  const renderIcon = (fieldName: keyof typeof formData, isRequired: boolean) => {
+    if (!touched[fieldName]) return null;
+    
+    const isValid = validations[fieldName];
+    const value = formData[fieldName];
+    
+    if (isValid && (isRequired || value.trim().length > 0)) {
+      return (
+        <div 
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 bg-[#27BD09]" 
+          style={{ 
+            WebkitMaskImage: 'url("https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/tick-circle.svg")', 
+            WebkitMaskSize: 'contain', 
+            WebkitMaskRepeat: 'no-repeat', 
+            WebkitMaskPosition: 'center', 
+            maskImage: 'url("https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/tick-circle.svg")', 
+            maskSize: 'contain', 
+            maskRepeat: 'no-repeat', 
+            maskPosition: 'center' 
+          }} 
+        />
+      );
+    } else if (!isValid && isRequired) {
+      return (
+        <div 
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 bg-[#FF1F1F]" 
+          style={{ 
+            WebkitMaskImage: 'url("https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/close-circle.svg")', 
+            WebkitMaskSize: 'contain', 
+            WebkitMaskRepeat: 'no-repeat', 
+            WebkitMaskPosition: 'center', 
+            maskImage: 'url("https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/close-circle.svg")', 
+            maskSize: 'contain', 
+            maskRepeat: 'no-repeat', 
+            maskPosition: 'center' 
+          }} 
+        />
+      );
+    }
+    return null;
+  };
+
   const formVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -33,53 +107,88 @@ export default function ContactSection() {
           </p>
         </div>
 
-        <form className="max-w-2xl w-full mx-auto flex flex-col gap-8">
+        <form className="max-w-2xl w-full mx-auto flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
           <motion.div variants={formVariants} className="flex flex-col gap-2 border-b border-[#D9D9D9] pb-2 transition-colors duration-300 hover:border-black focus-within:border-black">
             <label className="text-sm font-medium">Your Name*</label>
-            <input 
-              type="text" 
-              placeholder="Who's reaching out?" 
-              className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base"
-              required
-            />
+            <div className="relative w-full">
+              <input 
+                type="text" 
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Who's reaching out?" 
+                className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base pr-8"
+                required
+              />
+              {renderIcon('name', true)}
+            </div>
           </motion.div>
 
           <motion.div variants={formVariants} className="flex flex-col gap-2 border-b border-[#D9D9D9] pb-2 transition-colors duration-300 hover:border-black focus-within:border-black">
             <label className="text-sm font-medium">Email*</label>
-            <input 
-              type="email" 
-              placeholder="Where can we reach you?" 
-              className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base"
-              required
-            />
+            <div className="relative w-full">
+              <input 
+                type="email" 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Where can we reach you?" 
+                className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base pr-8"
+                required
+              />
+              {renderIcon('email', true)}
+            </div>
           </motion.div>
 
           <motion.div variants={formVariants} className="flex flex-col gap-2 border-b border-[#D9D9D9] pb-2 transition-colors duration-300 hover:border-black focus-within:border-black">
             <label className="text-sm font-medium">Phone Number*</label>
-            <input 
-              type="tel" 
-              placeholder="Best number to call you on?" 
-              className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base"
-              required
-            />
+            <div className="relative w-full">
+              <input 
+                type="tel" 
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Best number to call you on?" 
+                className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base pr-8"
+                required
+              />
+              {renderIcon('phone', true)}
+            </div>
           </motion.div>
 
           <motion.div variants={formVariants} className="flex flex-col gap-2 border-b border-[#D9D9D9] pb-2 transition-colors duration-300 hover:border-black focus-within:border-black">
             <label className="text-sm font-medium">Farm / Company</label>
-            <input 
-              type="text" 
-              placeholder="Your farm or organization?" 
-              className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base"
-            />
+            <div className="relative w-full">
+              <input 
+                type="text" 
+                name="farm"
+                value={formData.farm}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Your farm or organization?" 
+                className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base pr-8"
+              />
+              {renderIcon('farm', false)}
+            </div>
           </motion.div>
 
           <motion.div variants={formVariants} className="flex flex-col gap-2 border-b border-[#D9D9D9] pb-2 transition-colors duration-300 hover:border-black focus-within:border-black">
             <label className="text-sm font-medium">Tell Us More</label>
-            <input 
-              type="text" 
-              placeholder="What crops or acreage would you like to discuss?" 
-              className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base"
-            />
+            <div className="relative w-full">
+              <input 
+                type="text" 
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="What crops or acreage would you like to discuss?" 
+                className="w-full bg-transparent outline-none placeholder:text-[#D9D9D9] focus:placeholder:text-gray-500 transition-colors duration-300 text-base pr-8"
+              />
+              {renderIcon('message', false)}
+            </div>
           </motion.div>
 
           <motion.div variants={formVariants} className="mt-8 flex justify-center">
