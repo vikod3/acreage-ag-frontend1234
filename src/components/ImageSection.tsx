@@ -17,7 +17,7 @@ export default function ImageSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full mx-auto px-6 md:px-12 lg:px-[120px] py-8 md:py-24 flex flex-col h-full justify-between gap-24">
+      <div className="relative z-10 w-full mx-auto px-6 md:px-12 lg:px-[120px] py-8 md:py-24 flex flex-col h-full justify-between gap-4 md:gap-24">
         
         {/* Top Content: Headline & Subheadline & Button */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 w-full items-end">
@@ -28,7 +28,7 @@ export default function ImageSection() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="md:col-span-2"
           >
-            <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-medium tracking-tight text-white mb-6 leading-[1.1] max-w-[800px]">
+            <h2 className="text-[clamp(1.5rem,4vw,3.5rem)] font-medium tracking-tight text-white mb-6 leading-[1.1] max-w-[800px]">
               <Typewriter text="A Highly Efficient, Precision-Driven Harvesting Process Built For " delay={0} speed={0.012} /><span className="font-dm-serif italic font-normal"><Typewriter text="Maximum Yield" delay={0.8} speed={0.012} /></span>
             </h2>
             <p className="text-lg md:text-[24px] text-white/80 font-light tracking-wide">
@@ -41,7 +41,7 @@ export default function ImageSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-            className="flex justify-end w-full max-w-[421px] pb-1"
+            className="hidden md:flex justify-end w-full max-w-[421px] pb-1"
           >
             <button 
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
@@ -53,7 +53,7 @@ export default function ImageSection() {
         </div>
 
         {/* Bottom Content: 3 Columns (How it works) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 w-full mt-[200px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 w-full md:mt-[200px]">
           
           {/* Column 1 */}
           <motion.div 
@@ -104,6 +104,22 @@ export default function ImageSection() {
           </motion.div>
 
         </div>
+
+        {/* Mobile Button (Shows below icons) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          className="flex md:hidden justify-start w-full"
+        >
+          <button 
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="px-6 py-2.5 rounded-full bg-white text-black hover:bg-black hover:text-white transition-colors duration-300 text-sm tracking-wide font-medium"
+          >
+            Schedule Service
+          </button>
+        </motion.div>
       </div>
     </section>
   );

@@ -24,7 +24,7 @@ export default function ContactSection() {
         className="w-full max-w-3xl mx-auto flex flex-col items-center"
       >
         <div className="text-center mb-16 w-full">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          <h2 className="text-[clamp(1.5rem,4vw,3.5rem)] font-medium tracking-tight mb-6 leading-[1.1]">
             <span className="text-black font-dm-serif font-normal italic"><Typewriter text="Let's grow!" delay={0} speed={0.012} /></span> <Typewriter text="Fill in the form" delay={0.2} speed={0.012} /><br />
             <Typewriter text="and we'll be in touch" delay={0.4} speed={0.012} />
           </h2>
