@@ -4,18 +4,11 @@ export default function LogoMarquee() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const logos = [
-    { src: '/Logos/canva-logo-svg-150px.png', alt: 'Canva' },
-    { src: '/Logos/clickup-logo-svg-150px.png', alt: 'ClickUp' },
-    { src: '/Logos/dokey-logo-svg-150px.png', alt: 'Dokey' },
-    { src: '/Logos/dropbox-logo-svg-150px.png', alt: 'Dropbox' },
-    { src: '/Logos/github-logo-svg-150px.png', alt: 'GitHub' },
-    { src: '/Logos/glide-logo-svg-150px.png', alt: 'Glide' },
-    { src: '/Logos/notion-logo-svg-150px.png', alt: 'Notion' },
-    { src: '/Logos/pendo-logo-svg-150px.png', alt: 'Pendo' },
-    { src: '/Logos/pitch-logo-svg-150px.png', alt: 'Pitch' },
-    { src: '/Logos/typeform-logo-svg-150px.png', alt: 'Typeform' },
-    { src: '/Logos/voiceflow-logo-svg-150px.png', alt: 'Voiceflow' },
-    { src: '/Logos/zendesk-logo-svg-150px.png', alt: 'Zendesk' },
+    { src: 'https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/voiceflow-logo-svg-150px.svg', alt: 'Voiceflow' },
+    { src: 'https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/zendesk-logo-svg-150px.svg', alt: 'Zendesk' },
+    { src: 'https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/pendo-logo-svg-150px.svg', alt: 'Pendo' },
+    { src: 'https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/glide-logo-svg-150px.svg', alt: 'Glide' },
+    { src: 'https://raw.githubusercontent.com/dsMagnatov/Acreage-landing-assets/refs/heads/main/canva-logo-svg-150px.svg', alt: 'Canva' },
   ];
 
   useEffect(() => {
@@ -83,7 +76,39 @@ export default function LogoMarquee() {
         <div className="flex gap-12 pr-12">
           {logos.map((logo, index) => (
             <div 
-              key={`dup-${index}`}
+              key={`dup1-${index}`}
+              className="logo-item h-[32px] flex items-center justify-center px-4"
+            >
+              <img 
+                src={logo.src} 
+                alt={logo.alt} 
+                className="h-full w-auto object-contain opacity-40 hover:opacity-100 transition-opacity duration-300 filter invert brightness-0 origin-center"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          ))}
+        </div>
+        {/* Третій набір логотипів (дублікат для дуже широких екранів) */}
+        <div className="flex gap-12 pr-12">
+          {logos.map((logo, index) => (
+            <div 
+              key={`dup2-${index}`}
+              className="logo-item h-[32px] flex items-center justify-center px-4"
+            >
+              <img 
+                src={logo.src} 
+                alt={logo.alt} 
+                className="h-full w-auto object-contain opacity-40 hover:opacity-100 transition-opacity duration-300 filter invert brightness-0 origin-center"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          ))}
+        </div>
+        {/* Четвертий набір логотипів */}
+        <div className="flex gap-12 pr-12">
+          {logos.map((logo, index) => (
+            <div 
+              key={`dup3-${index}`}
               className="logo-item h-[32px] flex items-center justify-center px-4"
             >
               <img 
@@ -105,7 +130,7 @@ export default function LogoMarquee() {
           }
           100% { 
             /* Зсув рівно на 50% ширини батьківського контейнера, 
-               який містить два однакових блоки, що дає ідеальний цикл */
+               який містить 4 однакових блоки. 50% означає зсув на 2 блоки, що дає ідеальний цикл */
             transform: translateX(-50%); 
           }
         }
