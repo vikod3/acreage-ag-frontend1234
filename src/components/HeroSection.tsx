@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import Typewriter from './Typewriter';
 
 export default function HeroSection() {
   const [isOverWhiteBg, setIsOverWhiteBg] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,7 +68,12 @@ export default function HeroSection() {
         <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} className="px-4 py-2 rounded-full hover:bg-white hover:text-black transition-all duration-300 whitespace-nowrap hidden md:block">Contact Us</a>
         
         {/* Mobile menu trigger (visible only on small screens) */}
-        <button className="md:hidden px-4 py-2 rounded-full hover:bg-white hover:text-black transition-all duration-300">Menu</button>
+        <button 
+          onClick={() => setIsMobileMenuOpen(true)}
+          className="md:hidden px-4 py-2 rounded-full hover:bg-white hover:text-black transition-all duration-300"
+        >
+          Menu
+        </button>
       </motion.nav>
 
       {/* Main Content Area (Pushed to bottom) */}
@@ -138,6 +144,72 @@ export default function HeroSection() {
         </div>
         
       </main>
+
+      {/* Mobile Menu Backdrop */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm md:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Menu Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed bottom-0 left-0 w-full z-[70] bg-black border-t border-white/20 rounded-t-3xl flex flex-col px-6 py-8 md:hidden"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-white/50 text-sm uppercase tracking-widest">Menu</span>
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex flex-col">
+              <a 
+                href="#stats" 
+                onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); document.getElementById('stats')?.scrollIntoView({ behavior: 'smooth' }); }} 
+                className="py-4 text-lg text-white border-b border-white/[0.16]"
+              >
+                Impact
+              </a>
+              <a 
+                href="#services" 
+                onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} 
+                className="py-4 text-lg text-white border-b border-white/[0.16]"
+              >
+                Services
+              </a>
+              <a 
+                href="#feedback" 
+                onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); document.getElementById('feedback')?.scrollIntoView({ behavior: 'smooth' }); }} 
+                className="py-4 text-lg text-white border-b border-white/[0.16]"
+              >
+                Feedback
+              </a>
+              <a 
+                href="#contact" 
+                onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} 
+                className="py-4 text-lg text-white"
+              >
+                Contact Us
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
