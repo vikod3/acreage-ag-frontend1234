@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'motion/react';
 
 interface TypewriterProps {
   text: string;
@@ -14,11 +14,14 @@ export default function Typewriter({
   speed = 0.015,
   className = "" 
 }: TypewriterProps) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-10px" });
+
   return (
     <motion.span
+      ref={ref}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-10px" }}
+      animate={inView ? "visible" : "hidden"}
       variants={{
         hidden: { opacity: 1 },
         visible: {

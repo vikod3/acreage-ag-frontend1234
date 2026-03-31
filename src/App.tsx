@@ -8,6 +8,8 @@ import LogoMarquee from './components/LogoMarquee';
 import StatsSection from './components/StatsSection';
 import ImageSection from './components/ImageSection';
 import NextSection from './components/NextSection';
+import ContactSection from './components/ContactSection';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
       <LogoMarquee />
       <ImageSection />
       <NextSection />
+      <ContactSection />
+      <Footer />
     </div>
   );
 }
