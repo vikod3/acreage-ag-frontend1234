@@ -53,7 +53,7 @@ export default function ImageSection() {
         </div>
 
         {/* Bottom Content: 3 Columns (How it works) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 w-full mt-[200px]">
           
           {/* Column 1 */}
           <motion.div 
