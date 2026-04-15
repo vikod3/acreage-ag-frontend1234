@@ -33,7 +33,7 @@ export default function HeroSection() {
         webkit-playsinline="true"
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
       >
-        <source src="https://app-uploads.krea.ai/wan-videos/4ed16001-ff5f-419e-994f-cd65298f5720.mp4" type="video/mp4" />
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260415_055504_9e18aed7-c0bd-4b99-b587-d3c2adf36401.mp4" type="video/mp4" />
       </video>
 
       {/* Gradient transition to black at the bottom */}
